@@ -1,0 +1,197 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+:root {
+  --cyber-bg: #03000a;
+  --cyber-card: rgba(13, 8, 24, 0.7);
+  --cyber-border: rgba(0, 242, 254, 0.15);
+  --cyber-border-purple: rgba(181, 23, 158, 0.2);
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --bg-pure: #03000a;
+  --terminal-bg: rgba(5, 2, 10, 0.95);
+  --scroll-track: #03000a;
+  --scroll-thumb: #3b0066;
+  --scroll-thumb-hover: #5c0099;
+  --cyber-grid-color: rgba(0, 242, 254, 0.05);
+  --glass-bg: rgba(13, 8, 24, 0.65);
+  --glass-bg-purple: rgba(20, 5, 35, 0.65);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+
+  --neon-blue: #00f2fe;
+  --neon-purple: #b5179e;
+  --neon-pink: #f72585;
+  --neon-cyan: #4cc9f0;
+  --neon-green: #39ff14;
+  --neon-indigo: #4895ef;
+}
+
+[data-theme="light"] {
+  --cyber-bg: #f8fafc;
+  --cyber-card: rgba(255, 255, 255, 0.85);
+  --cyber-border: rgba(0, 119, 182, 0.2);
+  --cyber-border-purple: rgba(181, 23, 158, 0.25);
+  --text-main: #0f172a;
+  --text-muted: #475569;
+  --bg-pure: #ffffff;
+  --terminal-bg: rgba(241, 245, 249, 0.95);
+  --scroll-track: #f1f5f9;
+  --scroll-thumb: #cbd5e1;
+  --scroll-thumb-hover: #94a3b8;
+  --cyber-grid-color: rgba(0, 119, 182, 0.08);
+  --glass-bg: rgba(255, 255, 255, 0.75);
+  --glass-bg-purple: rgba(248, 242, 255, 0.75);
+  --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.08);
+
+  --neon-blue: #0077b6;
+  --neon-purple: #8338ec;
+  --neon-pink: #d90429;
+  --neon-cyan: #0096c7;
+  --neon-green: #008000;
+  --neon-indigo: #3f37c9;
+}
+
+@theme {
+  --font-sans: 'Outfit', 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  --color-cyber-bg: var(--cyber-bg);
+  --color-cyber-card: var(--cyber-card);
+  --color-cyber-border: var(--cyber-border);
+  --color-cyber-border-purple: var(--cyber-border-purple);
+  --color-text-main: var(--text-main);
+  --color-text-muted: var(--text-muted);
+  --color-bg-pure: var(--bg-pure);
+  --color-terminal-bg: var(--terminal-bg);
+
+  --color-neon-blue: var(--neon-blue);
+  --color-neon-purple: var(--neon-purple);
+  --color-neon-pink: var(--neon-pink);
+  --color-neon-green: var(--neon-green);
+  --color-neon-cyan: var(--neon-cyan);
+  --color-neon-indigo: var(--neon-indigo);
+
+  --animate-scanline: scanline 8s linear infinite;
+  --animate-grid-move: grid-move 20s linear infinite;
+  --animate-glow-pulse: glow-pulse 2s ease-in-out infinite;
+
+  @keyframes scanline {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100%); }
+  }
+  @keyframes grid-move {
+    0% { background-position: 0 0; }
+    100% { background-position: 0 100px; }
+  }
+  @keyframes glow-pulse {
+    0%, 100% { filter: drop-shadow(0 0 5px rgba(0, 242, 254, 0.4)) drop-shadow(0 0 10px rgba(181, 23, 158, 0.2)); }
+    50% { filter: drop-shadow(0 0 15px rgba(0, 242, 254, 0.8)) drop-shadow(0 0 20px rgba(181, 23, 158, 0.4)); }
+  }
+}
+
+/* Custom Base Layer overrides */
+@layer base {
+  body {
+    background-color: var(--color-cyber-bg);
+    color: var(--color-text-main);
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--scroll-track);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--scroll-thumb);
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--scroll-thumb-hover);
+    box-shadow: 0 0 8px var(--color-neon-blue);
+  }
+}
+
+/* Custom cyber grid styling */
+.cyber-grid {
+  background-image: linear-gradient(var(--cyber-grid-color) 1px, transparent 1px),
+                    linear-gradient(90deg, var(--cyber-grid-color) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+/* Glassmorphism utility classes */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--color-cyber-border);
+  box-shadow: var(--glass-shadow);
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-panel-purple {
+  background: var(--glass-bg-purple);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--color-cyber-border-purple);
+  box-shadow: var(--glass-shadow);
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Glow borders and effects */
+.glow-border-blue {
+  box-shadow: 0 0 10px rgba(0, 242, 254, 0.3), inset 0 0 10px rgba(0, 242, 254, 0.1);
+  border-color: rgba(0, 242, 254, 0.5);
+}
+
+.glow-border-purple {
+  box-shadow: 0 0 10px rgba(181, 23, 158, 0.3), inset 0 0 10px rgba(181, 23, 158, 0.1);
+  border-color: rgba(181, 23, 158, 0.5);
+}
+
+.glow-text-blue {
+  text-shadow: 0 0 10px rgba(0, 242, 254, 0.8), 0 0 20px rgba(0, 242, 254, 0.4);
+}
+
+.glow-text-purple {
+  text-shadow: 0 0 10px rgba(181, 23, 158, 0.8), 0 0 20px rgba(181, 23, 158, 0.4);
+}
+
+.glow-text-green {
+  text-shadow: 0 0 10px rgba(57, 255, 20, 0.8), 0 0 20px rgba(57, 255, 20, 0.4);
+}
+
+/* Glitch effects (Keyframes triggered by GSAP / CSS) */
+@keyframes glitch-shake {
+  0% { transform: translate(0, 0) skew(0deg); }
+  10% { transform: translate(-2px, 2px) skew(-2deg); }
+  20% { transform: translate(-2px, -2px) skew(1deg); }
+  30% { transform: translate(2px, 2px) skew(0deg); }
+  40% { transform: translate(1px, -1px) skew(2deg); }
+  50% { transform: translate(-1px, 2px) skew(-1deg); }
+  60% { transform: translate(-2px, 1px) skew(0deg); }
+  70% { transform: translate(2px, 1px) skew(-2deg); }
+  80% { transform: translate(1px, -2px) skew(1deg); }
+  90% { transform: translate(-1px, -1px) skew(-1deg); }
+  100% { transform: translate(0, 0) skew(0deg); }
+}
+
+.animate-glitch {
+  animation: glitch-shake 0.3s linear infinite;
+}
+
+/* Screen shake for error system */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+  20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+.shake-screen {
+  animation: shake 0.5s ease-in-out;
+}
