@@ -384,6 +384,18 @@ export const roadmapNodes: RoadmapNode[] = [
         ],
         codeSnippet: `// Malicious Site Triggering CSRF:\n// <form action="https://mybank.com/transfer" method="POST">\n//   <input type="hidden" name="amount" value="5000" />\n//   <input type="hidden" name="to" value="attacker_id" />\n// </form>\n// <script>document.forms[0].submit()</script>\n// SameSite=Strict blocks the cookie from attaching here!`,
         proTip: "Always combine SameSite cookies with CSRF validation tokens (anti-CSRF tokens in form headers) to defend non-cookie APIs."
+      },
+      {
+        title: "9. Real-World Applications & Industry Examples",
+        description: "See how modern platforms deploy storage systems in practice.",
+        points: [
+          "Gmail (Google): Uses HttpOnly session cookies to preserve mail authentication states, ensuring script injections cannot read tokens.",
+          "Amazon: Stores shopping cart configurations inside a client-side persistent cookie. This allows guest sessions to retain carts when returning.",
+          "Netflix: Leverages stateful cookies and device registries to track active screen counts and block account sharing.",
+          "GitHub: Combines HttpOnly session cookies with anti-CSRF request tokens to secure source code uploads."
+        ],
+        codeSnippet: `// Real-world configuration profile:\n// Gmail Auth cookie -> Set-Cookie: SID=xyz...; Domain=.google.com; Path=/; HttpOnly; Secure\n// Amazon Cart cookie -> Set-Cookie: session-id=123...; Max-Age=31536000; Path=/; SameSite=Lax`,
+        proTip: "Use LocalStorage for UI theme settings, user-selected language layouts, and cached workspace configs. Use Cookies for logins, secrets, and verification IDs."
       }
     ]
   },
