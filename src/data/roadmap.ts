@@ -396,6 +396,18 @@ export const roadmapNodes: RoadmapNode[] = [
         ],
         codeSnippet: `// Real-world configuration profile:\n// Gmail Auth cookie -> Set-Cookie: SID=xyz...; Domain=.google.com; Path=/; HttpOnly; Secure\n// Amazon Cart cookie -> Set-Cookie: session-id=123...; Max-Age=31536000; Path=/; SameSite=Lax`,
         proTip: "Use LocalStorage for UI theme settings, user-selected language layouts, and cached workspace configs. Use Cookies for logins, secrets, and verification IDs."
+      },
+      {
+        title: "10. Browser DevTools Lab & Developer Mistakes",
+        description: "Hands-on check list to inspect storage and avoid rookie code bugs.",
+        points: [
+          "DevTools Access: Press F12 or Right Click -> Inspect. Navigate to the 'Application' tab (Chrome) or 'Storage' tab (Firefox).",
+          "Cookie Inspection: Select Storage -> Cookies -> current domain. Inspect the Name, Value, Domain, Path, Expiry, HttpOnly, and Secure checkmarks.",
+          "Rookie Mistake 1: Storing raw passwords or user access levels directly in local storage. (Users can edit storage variables to gain admin access).",
+          "Rookie Mistake 2: Missing the Secure flag, allowing tokens to leak over insecure HTTP public networks."
+        ],
+        codeSnippet: `// DevTools Practical Task Checklist:\n// 1. Open DevTools -> Application tab.\n// 2. Select LocalStorage to inspect active variables.\n// 3. Select Cookies to check HttpOnly column checks.\n// 4. Click a cookie row -> press Delete -> Refresh page.\n// 5. Verify the session state resets!`,
+        proTip: "Always validate incoming user parameters on your server. Never trust clients to define their role (e.g. setting isAdmin=true in localStorage) without server verification."
       }
     ]
   },
