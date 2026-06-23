@@ -337,6 +337,17 @@ export const roadmapNodes: RoadmapNode[] = [
         ],
         codeSnippet: `/* Interactive Session Flow Visual Blueprint */\n\n  [ Client Browser ]                      [ DevCorp Backend ]\n         │                                         │\n         ├─────── (POST /login with credentials) ──>┤ (Validates user)\n         │                                         ├─ (Generates session ID)\n         │                                         ├─ (Saves session ID to Redis)\n         ├<────── (Response: Set-Cookie: sid=abc) ─┤\n         │                                         │\n  (Stores cookie)\n         │                                         │\n         ├─────── (GET /dashboard with Cookie) ───>┤ (Fetches 'sid' from header)\n         │                                         ├─ (Finds matching session in DB)\n         ├<────── (Returns Private Dashboard) ─────┤\n         │                                         │`,
         proTip: "Session authentication is stateful, meaning the server must query the database or Redis cache on every request to look up the session ID."
+      },
+      {
+        title: "5. JWT vs Session Authentication",
+        description: "Contrast token-based stateless authentication with cookie-based stateful authentication.",
+        points: [
+          "Sessions (Stateful): Session state resides on the server. Easy logout (delete session in Redis). Harder to scale horizontally across multi-region server hubs.",
+          "JWT (Stateless): Tokens hold user payloads signed with a private secret. The server does not store active sessions. Scalable, but harder to revoke before expiration.",
+          "Cookies Usage: Both session IDs and JWT tokens can be sent inside secure HTTP cookies to leverage browser automatic transmission."
+        ],
+        codeSnippet: `// Comparison Matrix:\n// | Feature      | Session Auth               | JWT Auth                   |\n// |--------------|----------------------------|----------------------------|\n// | Storage      | Server (Redis/Database)    | Client (Memory/Cookie)     |\n// | Scalability  | Requires shared state/sync | Scalable by design         |\n// | Expiry       | Revocable instantly        | Hard to revoke instantly   |\n// | Size         | Small (Session ID string)  | Large (Payload + Signature)|\n// | Security     | CSRF vulnerable (default)  | XSS vulnerable (default)   |`,
+        proTip: "If you need immediate user ban or logout capabilities, Session Authentication is much easier to manage. JWTs require blocklist tables to revoke tokens early."
       }
     ]
   },
