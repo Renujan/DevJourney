@@ -303,6 +303,17 @@ export const roadmapNodes: RoadmapNode[] = [
         ],
         codeSnippet: `// Example HTTP headers demonstrating cookie exchange\n// Server Response:\nHTTP/1.1 200 OK\nSet-Cookie: user_id=devcorp_102; Path=/; Domain=devcorp.com\n\n// Subsequent Client Request:\nGET /api/dashboard HTTP/1.1\nHost: devcorp.com\nCookie: user_id=devcorp_102`,
         proTip: "Cookies are domain-specific. A cookie set by devcorp.com cannot be read by another domain unless they share a matching sub-domain wildcard structure."
+      },
+      {
+        title: "2. Cookie Lifecycle: Session vs Persistent",
+        description: "Understand cookie lifespans and how they expire or get removed from storage.",
+        points: [
+          "Session Cookies: Created without Expires or Max-Age attributes. They are kept in volatile memory and deleted when the user closes their browser tab or window.",
+          "Persistent Cookies: Configured with 'Expires' (exact GMT timestamp) or 'Max-Age' (delta seconds from creation). They survive browser restarts and stay on disk until expiration.",
+          "Deletion: To delete a cookie, set its 'Max-Age' to 0 or configure the 'Expires' attribute to a historical date (e.g. Epoch time)."
+        ],
+        codeSnippet: `// Setting a persistent cookie expiring in 1 hour (3600 seconds)\nSet-Cookie: user=John; Max-Age=3600;\n\n// Deleting a cookie instantly\nSet-Cookie: user=John; Max-Age=0;`,
+        proTip: "Browsers discard expired cookies automatically. Never rely on the client's system clock for precise expiration, as incorrect client dates can cause unexpected login expiries."
       }
     ]
   },
