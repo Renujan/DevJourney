@@ -275,11 +275,43 @@ export const roadmapNodes: RoadmapNode[] = [
     ]
   },
   {
+    id: "cookies_session",
+    label: "Cookies & Sessions",
+    description: "Understand state persistence, cookies vs local storage, session management, and how to secure sessions against XSS and CSRF.",
+    category: "backend",
+    prerequisites: ["api_integration"],
+    quiz: {
+      question: "Which cookie attribute prevents client-side JavaScript from accessing cookies, mitigating XSS token theft?",
+      options: ["Secure", "HttpOnly", "SameSite=Strict", "Path=/"],
+      answer: "HttpOnly"
+    },
+    miniProject: {
+      title: "Set-Cookie Builder",
+      prompt: "Construct a secure cookie string with HttpOnly, Secure, SameSite=Strict, and Max-Age=3600.",
+      codeTemplate: `function configureCookie(name: string, value: string): string {\n  // Return formatted cookie string\n}`,
+      solution: `function configureCookie(name: string, value: string): string {\n  return \`\${name}=\${value}; Secure; HttpOnly; SameSite=Strict; Max-Age=3600\`;\n}`
+    },
+    xpReward: 100,
+    studyContent: [
+      {
+        title: "1. HTTP Cookies Basics",
+        description: "Learn how browsers and servers store state information across stateless HTTP boundaries.",
+        points: [
+          "Stateless Protocol: HTTP is stateless by design. Every request is completely isolated, with no memory of prior interactions.",
+          "Cookies Mechanism: Small string key-value pairs stored directly by the web browser on behalf of domains.",
+          "Transmission Flow: Servers send the 'Set-Cookie' header. Browsers read this header, store the values, and automatically attach them to the 'Cookie' header in all future HTTP requests to that same domain."
+        ],
+        codeSnippet: `// Example HTTP headers demonstrating cookie exchange\n// Server Response:\nHTTP/1.1 200 OK\nSet-Cookie: user_id=devcorp_102; Path=/; Domain=devcorp.com\n\n// Subsequent Client Request:\nGET /api/dashboard HTTP/1.1\nHost: devcorp.com\nCookie: user_id=devcorp_102`,
+        proTip: "Cookies are domain-specific. A cookie set by devcorp.com cannot be read by another domain unless they share a matching sub-domain wildcard structure."
+      }
+    ]
+  },
+  {
     id: "advanced_react",
     label: "Advanced React",
     description: "Explore performance optimization, custom hooks, context, and state managers like Zustand.",
     category: "frontend",
-    prerequisites: ["api_integration"],
+    prerequisites: ["cookies_session"],
     quiz: {
       question: "What does React.memo optimize?",
       options: ["DOM creation", "Component re-renders", "Bundle size", "API fetch rates"],
