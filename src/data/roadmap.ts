@@ -325,6 +325,18 @@ export const roadmapNodes: RoadmapNode[] = [
         ],
         codeSnippet: `// LocalStorage API Usage\nlocalStorage.setItem("theme", "dark");\nconst currentTheme = localStorage.getItem("theme");\n\n// SessionStorage API Usage\nsessionStorage.setItem("current_step", "2");\nconst step = sessionStorage.getItem("current_step");`,
         proTip: "Use LocalStorage for non-sensitive settings (like themes, language settings). Never store JWTs or user credentials in LocalStorage due to security vulnerabilities."
+      },
+      {
+        title: "4. Session Authentication Flow",
+        description: "Analyze how session state persistence works under the hood.",
+        points: [
+          "Credentials Validation: User submits username/password. Server verifies the credentials against the database.",
+          "Session Creation: Server generates a unique cryptographically secure Session ID (e.g. session_102abc) and stores it in server memory, databases, or Redis.",
+          "Set-Cookie Handshake: Server sends the Session ID to the client inside a Set-Cookie header.",
+          "Auto-Attachment: The browser stores the cookie and attaches it automatically to subsequent headers. The server reads the cookie to authenticate requests."
+        ],
+        codeSnippet: `/* Interactive Session Flow Visual Blueprint */\n\n  [ Client Browser ]                      [ DevCorp Backend ]\n         │                                         │\n         ├─────── (POST /login with credentials) ──>┤ (Validates user)\n         │                                         ├─ (Generates session ID)\n         │                                         ├─ (Saves session ID to Redis)\n         ├<────── (Response: Set-Cookie: sid=abc) ─┤\n         │                                         │\n  (Stores cookie)\n         │                                         │\n         ├─────── (GET /dashboard with Cookie) ───>┤ (Fetches 'sid' from header)\n         │                                         ├─ (Finds matching session in DB)\n         ├<────── (Returns Private Dashboard) ─────┤\n         │                                         │`,
+        proTip: "Session authentication is stateful, meaning the server must query the database or Redis cache on every request to look up the session ID."
       }
     ]
   },
