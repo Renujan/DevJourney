@@ -127,8 +127,8 @@ export const useXPSystem = create<XPState>()(
           const newXP = state.xp + addedXP;
           const newLevel = getLevelFromXP(newXP);
 
-          // Find index of completed node in the order: html -> css -> javascript -> react_basics -> api_integration -> advanced_react -> projects -> interview_prep
-          const order = ["html", "css", "javascript", "react_basics", "api_integration", "advanced_react", "projects", "interview_prep"];
+          // Find index of completed node in the order: html -> css -> javascript -> react_basics -> api_integration -> cookies_session -> advanced_react -> projects -> interview_prep
+          const order = ["html", "css", "javascript", "react_basics", "api_integration", "cookies_session", "advanced_react", "projects", "interview_prep"];
           const currentIndex = order.indexOf(id);
           const nextNode = currentIndex !== -1 && currentIndex + 1 < order.length ? order[currentIndex + 1] : null;
 
@@ -182,7 +182,8 @@ export const useXPSystem = create<XPState>()(
           if (state.badges.includes(badgeId)) return {};
           
           const currentBadges = [...state.badges, badgeId];
-          const newXP = state.xp + 25;
+          const addedXP = badgeId.includes('Cookies & Sessions Master') ? 100 : 25;
+          const newXP = state.xp + addedXP;
           const newLevel = getLevelFromXP(newXP);
           
           return {
