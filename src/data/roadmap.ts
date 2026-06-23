@@ -314,6 +314,17 @@ export const roadmapNodes: RoadmapNode[] = [
         ],
         codeSnippet: `// Setting a persistent cookie expiring in 1 hour (3600 seconds)\nSet-Cookie: user=John; Max-Age=3600;\n\n// Deleting a cookie instantly\nSet-Cookie: user=John; Max-Age=0;`,
         proTip: "Browsers discard expired cookies automatically. Never rely on the client's system clock for precise expiration, as incorrect client dates can cause unexpected login expiries."
+      },
+      {
+        title: "3. Storage Showdown: Cookies vs LocalStorage vs SessionStorage",
+        description: "Compare sizes, transmissions, and access parameters of standard client-side storage structures.",
+        points: [
+          "Cookies: Limited to 4KB of data. Automatically transmitted to the server on every matching HTTP request. Accessible via document.cookie unless flags prevent it.",
+          "LocalStorage: Store up to 5MB+ of data per origin. Persistent across browser sessions. Never sent to the server automatically. Vulnerable to script injection (XSS).",
+          "SessionStorage: Store up to 5MB+ of data. Lifespan is scoped to the active browser tab. Closing the tab erases all SessionStorage keys immediately."
+        ],
+        codeSnippet: `// LocalStorage API Usage\nlocalStorage.setItem("theme", "dark");\nconst currentTheme = localStorage.getItem("theme");\n\n// SessionStorage API Usage\nsessionStorage.setItem("current_step", "2");\nconst step = sessionStorage.getItem("current_step");`,
+        proTip: "Use LocalStorage for non-sensitive settings (like themes, language settings). Never store JWTs or user credentials in LocalStorage due to security vulnerabilities."
       }
     ]
   },
