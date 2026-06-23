@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useXPSystem } from '../features/xpSystem/xpSystem';
+import { roadmapNodes } from '../data/roadmap';
 import { XPBar } from '../components/XPBar';
 import { motion } from 'framer-motion';
 import { 
@@ -76,7 +77,7 @@ export function Dashboard() {
       desc: "Lock-in frontend concepts: HTML, CSS, JavaScript, React basics, APIs, and mini-projects.",
       icon: Map,
       path: "/roadmap",
-      stats: `${completedRoadmap.length} / 8 Milestones Passed`,
+      stats: `${completedRoadmap.length} / ${roadmapNodes.length} Milestones Passed`,
       color: "from-teal-500/20 to-cyan-500/10 border-teal-500/30 text-neon-cyan",
       glowColor: "rgba(76, 201, 240, 0.2)",
       reqXp: 0
@@ -88,7 +89,8 @@ export function Dashboard() {
     { id: 'API Master 🌐', desc: 'Solved 404 + CORS errors', iconColor: 'text-blue-400' },
     { id: 'React Ninja ⚛️', desc: 'Finished React lessons or Developer quiz', iconColor: 'text-cyan-400' },
     { id: 'Interview King 👑', desc: 'Scored 3+ points on interview panels', iconColor: 'text-yellow-400' },
-    { id: 'Flow Architect ⚡', desc: 'Completed all API Flow Visualizer challenges', iconColor: 'text-neon-cyan' }
+    { id: 'Flow Architect ⚡', desc: 'Completed all API Flow Visualizer challenges', iconColor: 'text-neon-cyan' },
+    { id: 'Cookies & Sessions Master 🍪', desc: 'Completed the Cookie Lab and secured session configurations', iconColor: 'text-amber-400' }
   ];
 
   return (
