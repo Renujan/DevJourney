@@ -348,6 +348,20 @@ export const roadmapNodes: RoadmapNode[] = [
         ],
         codeSnippet: `// Comparison Matrix:\n// | Feature      | Session Auth               | JWT Auth                   |\n// |--------------|----------------------------|----------------------------|\n// | Storage      | Server (Redis/Database)    | Client (Memory/Cookie)     |\n// | Scalability  | Requires shared state/sync | Scalable by design         |\n// | Expiry       | Revocable instantly        | Hard to revoke instantly   |\n// | Size         | Small (Session ID string)  | Large (Payload + Signature)|\n// | Security     | CSRF vulnerable (default)  | XSS vulnerable (default)   |`,
         proTip: "If you need immediate user ban or logout capabilities, Session Authentication is much easier to manage. JWTs require blocklist tables to revoke tokens early."
+      },
+      {
+        title: "6. Cookie Security Flags: HttpOnly, Secure, & SameSite",
+        description: "Harden your cookies against network sniffers, script thefts, and cross-site requests.",
+        points: [
+          "HttpOnly: Block client-side scripts (e.g. document.cookie) from reading the cookie. Eliminates cookie theft via XSS.",
+          "Secure: Enforce cookie transmission strictly over secure HTTPS connections. Prevents intercepting credentials on public Wi-Fi networks.",
+          "SameSite: Controls cross-site cookie attachment rules.",
+          "SameSite=Strict: Cookie is never sent on cross-site requests (e.g. following links from external domains). Best for banking transactions.",
+          "SameSite=Lax: Cookie is sent on top-level safe navigations (e.g., standard links). Default browser setting.",
+          "SameSite=None: Cookies sent everywhere (requires Secure flag as a prerequisite)."
+        ],
+        codeSnippet: `// Securing a production session cookie in headers\nSet-Cookie: session_id=s82ks91; Secure; HttpOnly; SameSite=Strict; Max-Age=3600;`,
+        proTip: "Always set HttpOnly and Secure on all auth tokens. Combining them with SameSite=Lax blocks almost all standard automated security attacks."
       }
     ]
   },
